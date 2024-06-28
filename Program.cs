@@ -3,7 +3,7 @@ using spaceDragonBall;
 using System.Text.Json;
 
 
-DragonBall dragonBall = await DragonBall.pruebaApiDragonBall();
+DragonBall dragonBall = await DragonBall.GetApiDragonBallAsync();
 
 foreach (var personaje in dragonBall.listaPersonajes)
 {
