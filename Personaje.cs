@@ -21,7 +21,7 @@ namespace spacePersonaje
         
     }
 
-    class Caracteristicas
+    public class Caracteristicas
     {
         private int velocidad; // 1 a 10
         private int destreza; // 1 a 5
