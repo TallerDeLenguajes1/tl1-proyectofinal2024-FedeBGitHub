@@ -1,0 +1,15 @@
+{
+  "Datos": {
+    "Raza": "Saiyan",
+    "Nombre": "Broly",
+    "Descripcion": "Broly es un Saiyajin que posee un poder gigantesco e incontrolable, el cual se manifiesta en toda su magnitud cuando se convierte en el Super Saiyajin Legendario. Incluso cuando apenas era un bebé su nivel de poder alcanzaba cifras inmensas que provocaban asombro y preocupación entre los de su raza"
+  },
+  "Caracteristicas": {
+    "Velocidad": 3,
+    "Destreza": 3,
+    "Fuerza": 4,
+    "Ki": 9,
+    "Resistencia": 7,
+    "Salud": 100
+  }
+}

@@ -1,6 +1,9 @@
 ﻿using System.IO;
-using spaceDragonBall;
 using System.Text.Json;
+using spacePersonaje;
+using spaceDragonBall;
+using fabricaDePersonajes;
+
 
 
 DragonBall dragonBall = await DragonBall.GetApiDragonBallAsync();
@@ -15,6 +18,27 @@ foreach (var personaje in dragonBall.listaPersonajes)
 }
 
 
+Personaje papas = new Personaje{
+     Datos = new Datos{
+        Nombre = "aaa",
+        Raza = "ee",
+        Descripcion = "sdasds",
+    },
+    Caracteristicas = new Caracteristicas{
+        Salud = 100,
+        Velocidad = 2,
+        Destreza = 3,
+        Fuerza = 4,
+        Ki = 1,
+        Resistencia = 8,
+    }
+};
+
+Personaje prueba = new Personaje();
+prueba = FabricaDePersonajes.PersonajeAleatorio(dragonBall);
+string jsonP = JsonSerializer.Serialize(prueba);
+string guardar = "../../../personajeAleatorio.json"; 
+File.WriteAllText(guardar,jsonP);
 
 /*
 //---------------------BORRADOR DE SISTEMA DE BACKUP---------------------

@@ -23,16 +23,18 @@ namespace fabricaDePersonajes
             Items P = contenidoApi.listaPersonajes[random.Next(0, 58)]; //Items es una subclase de DragonBall
             //Paso los datos relevantes
             Personaje personajeAleatorio = new Personaje();
-            personajeAleatorio.DatosP.Nombre = P.Name;
-            personajeAleatorio.DatosP.Raza = P.Race;
-            personajeAleatorio.DatosP.Descripcion = P.Description;
+            personajeAleatorio.Datos = new Datos();
+            personajeAleatorio.Caracteristicas = new Caracteristicas();
+            personajeAleatorio.Datos.Nombre = P.Name;
+            personajeAleatorio.Datos.Raza = P.Race;
+            personajeAleatorio.Datos.Descripcion = P.Description;
 
-            personajeAleatorio.CaractP.Velocidad = random.Next(1, 10);
-            personajeAleatorio.CaractP.Destreza = random.Next(1, 5);
-            personajeAleatorio.CaractP.Fuerza = random.Next(1, 10);
-            personajeAleatorio.CaractP.Ki = random.Next(1, 10);
-            personajeAleatorio.CaractP.Resistencia = random.Next(1, 10);
-            personajeAleatorio.CaractP.Salud = random.Next(1, 10);
+            personajeAleatorio.Caracteristicas.Velocidad = random.Next(1, 10);
+            personajeAleatorio.Caracteristicas.Destreza = random.Next(1, 5);
+            personajeAleatorio.Caracteristicas.Fuerza = random.Next(1, 10);
+            personajeAleatorio.Caracteristicas.Ki = random.Next(1, 10);
+            personajeAleatorio.Caracteristicas.Resistencia = random.Next(1, 10);
+            personajeAleatorio.Caracteristicas.Salud = 100;
             return personajeAleatorio;
         }
 

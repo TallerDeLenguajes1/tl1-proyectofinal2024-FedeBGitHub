@@ -4,10 +4,10 @@ namespace spacePersonaje
     
     public class Personaje
     {
-        private Datos datosP;
-        private Caracteristicas caractP;
-        internal Datos DatosP { get => datosP; set => datosP = value; }
-        internal Caracteristicas CaractP { get => caractP; set => caractP = value; }
+        private Datos datos;
+        private Caracteristicas caracteristicas;
+        public Datos Datos { get => datos; set => datos = value; }
+        public Caracteristicas Caracteristicas { get => caracteristicas; set => caracteristicas = value; }
     }
     public class Datos
     {
