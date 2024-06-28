@@ -11,17 +11,14 @@ namespace spacePersonaje
     }
     public class Datos
     {
-        private string tipo;
+        private string raza;
         private string nombre;
-        private string apodo;
-        private DateTime fecNac;
-        private int edad;
+        private string descripcion;
 
-        public string Tipo { get => tipo; set => tipo = value; }
+        public string Raza { get => raza; set => raza = value; }
         public string Nombre { get => nombre; set => nombre = value; }
-        public string Apodo { get => apodo; set => apodo = value; }
-        public DateTime FecNac { get => fecNac; set => fecNac = value; }
-        public int Edad { get => edad; set => edad = value; }
+        public string Descripcion { get => descripcion; set => descripcion = value; }
+        
     }
 
     class Caracteristicas
@@ -29,14 +26,14 @@ namespace spacePersonaje
         private int velocidad; // 1 a 10
         private int destreza; // 1 a 5
         private int fuerza; // 1 a 10
-        private int nivel; // 1 a 10
-        private int armadura; // 1 a 10
+        private int ki; // 1 a 10
+        private int resistencia; // 1 a 10
         private int salud; // 100
         public int Velocidad { get => velocidad; set => velocidad = value; }
         public int Destreza { get => destreza; set => destreza = value; }
         public int Fuerza { get => fuerza; set => fuerza = value; }
-        public int Nivel { get => nivel; set => nivel = value; }
-        public int Armadura { get => armadura; set => armadura = value; }
+        public int Ki { get => ki; set => ki = value; }
+        public int Resistencia { get => resistencia; set => resistencia = value; }
         public int Salud { get => salud; set => salud = value; }
     }
 }

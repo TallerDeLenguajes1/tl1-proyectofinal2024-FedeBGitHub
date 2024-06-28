@@ -65,7 +65,7 @@ foreach (var personaje in dragonBall.items)
 */
 
 
-// Crear un directorio en caso de no existir
+//---------------Crear un directorio en caso de no existir----------------
 //string relativePath =@"datos\archivo.json";
         //string directory = Path.GetDirectoryName(relativePath);
 
