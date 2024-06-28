@@ -3,7 +3,7 @@ using spaceDragonBall;
 using System.Text.Json;
 
 
-DragonBall dragonBall = await pruebaApiDragonBall();
+DragonBall dragonBall = await DragonBall.pruebaApiDragonBall();
 
 foreach (var personaje in dragonBall.listaPersonajes)
 {
@@ -12,31 +12,6 @@ foreach (var personaje in dragonBall.listaPersonajes)
     Console.WriteLine($"Raza: {personaje.Race}");
     Console.WriteLine($"Descripcion: {personaje.Description}");
     Console.WriteLine("");
-}
-    
-
-static async Task<DragonBall> pruebaApiDragonBall()
-{
-    var url = "https://dragonball-api.com/api/characters?limit=58";
-    try
-    {
-        HttpClient clientP = new HttpClient();
-        HttpResponseMessage respuesta = await clientP.GetAsync(url);
-        respuesta.EnsureSuccessStatusCode();
-        string respuestaBody = await respuesta.Content.ReadAsStringAsync();
-        DragonBall dragonBall = JsonSerializer.Deserialize<DragonBall>(respuestaBody);
-
-        //-----------Guardar los datos en un archivo Json-------------
-        string direccion = "../../../DragonBall.json";
-        File.WriteAllText(direccion,respuestaBody);
-        return dragonBall;
-    }
-    catch (HttpRequestException a)
-    {
-            Console.WriteLine("Problemas de acceso a la api");
-            Console.WriteLine("Mensaje: {0}" , a.Message);
-        return null;
-    }
 }
 
 
