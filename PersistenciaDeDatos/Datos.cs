@@ -72,5 +72,24 @@ namespace espacioPersistenciaDeDatos
                 File.WriteAllText(direccionArchivo,jsonP);
             }
         }
+        public static List<HistorialJson> LeerGanadores (string direccionArchivo)
+        {
+            List<HistorialJson> Ganadores = new List<HistorialJson>();
+            // Leo lo que tengo en el Json
+            string JsonGuardado = File.ReadAllText(direccionArchivo);
+            // Deserealizo en la lista Ganadores
+            Ganadores = JsonSerializer.Deserialize<List<HistorialJson>>(JsonGuardado);
+            return Ganadores;
+        }
+        public static bool Existe (string direccionArchivo)
+        {
+            if (!File.Exists(direccionArchivo)) 
+            {return false;}
+            string contenido = File.ReadAllText(direccionArchivo);
+            if (string.IsNullOrWhiteSpace(contenido)) 
+            {return false;}
+            return true;
+        }
+        
     }
 }

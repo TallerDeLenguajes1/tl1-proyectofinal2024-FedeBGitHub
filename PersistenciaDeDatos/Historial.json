@@ -1,0 +1,59 @@
+[
+  {
+    "Fecha": "2024-07-17T00:41:18.5050765-03:00",
+    "NombreGanador": "Bicampion",
+    "Ganador": {
+      "Datos": {
+        "Raza": "Saiyan",
+        "Nombre": "Broly",
+        "Descripcion": "Broly es un Saiyajin que posee un poder gigantesco e incontrolable, el cual se manifiesta en toda su magnitud cuando se convierte en el Super Saiyajin Legendario. Incluso cuando apenas era un bebé su nivel de poder alcanzaba cifras inmensas que provocaban asombro y preocupación entre los de su raza"
+      },
+      "Caracteristicas": {
+        "Velocidad": 1,
+        "Destreza": 5,
+        "Fuerza": 2,
+        "Ki": 3,
+        "Resistencia": 4,
+        "Salud": 100
+      }
+    }
+  },
+  {
+    "Fecha": "2024-07-17T14:01:23.4013302-03:00",
+    "NombreGanador": "peter",
+    "Ganador": {
+      "Datos": {
+        "Raza": "Saiyan",
+        "Nombre": "Broly",
+        "Descripcion": "Broly es un Saiyajin que posee un poder gigantesco e incontrolable, el cual se manifiesta en toda su magnitud cuando se convierte en el Super Saiyajin Legendario. Incluso cuando apenas era un bebé su nivel de poder alcanzaba cifras inmensas que provocaban asombro y preocupación entre los de su raza"
+      },
+      "Caracteristicas": {
+        "Velocidad": 1,
+        "Destreza": 5,
+        "Fuerza": 2,
+        "Ki": 3,
+        "Resistencia": 4,
+        "Salud": 100
+      }
+    }
+  },
+  {
+    "Fecha": "2024-07-17T14:05:27.455883-03:00",
+    "NombreGanador": "tama",
+    "Ganador": {
+      "Datos": {
+        "Raza": "Saiyan",
+        "Nombre": "Broly",
+        "Descripcion": "Broly es un Saiyajin que posee un poder gigantesco e incontrolable, el cual se manifiesta en toda su magnitud cuando se convierte en el Super Saiyajin Legendario. Incluso cuando apenas era un bebé su nivel de poder alcanzaba cifras inmensas que provocaban asombro y preocupación entre los de su raza"
+      },
+      "Caracteristicas": {
+        "Velocidad": 1,
+        "Destreza": 5,
+        "Fuerza": 2,
+        "Ki": 3,
+        "Resistencia": 4,
+        "Salud": 100
+      }
+    }
+  }
+]
