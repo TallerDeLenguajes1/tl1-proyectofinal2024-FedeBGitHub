@@ -2,6 +2,7 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using spaceDirecciones;
 
 namespace spaceDragonBall
 {
@@ -41,7 +42,7 @@ namespace spaceDragonBall
 
     public class Links
     {
-         [JsonPropertyName("first")]
+        [JsonPropertyName("first")]
         public string First { get; set; }
 
         [JsonPropertyName("previous")]
@@ -64,7 +65,7 @@ namespace spaceDragonBall
 
         public static async Task<DragonBall> GetApiDragonBallAsync()
         {
-            var url = "https://dragonball-api.com/api/characters?limit=58";
+            var url = Directorio.ApiUrl;
             try
             {
                 HttpClient clientP = new HttpClient();
@@ -86,8 +87,5 @@ namespace spaceDragonBall
             }
         }
     }
-  
-
-
 }
     
