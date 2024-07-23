@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 using spacePersonaje;
 
 
-namespace espacioPersistenciaDeDatos
+namespace spacePersistenciaDeDatos
 {
     public class PersonajesJson
     {
@@ -81,6 +81,7 @@ namespace espacioPersistenciaDeDatos
             Ganadores = JsonSerializer.Deserialize<List<HistorialJson>>(JsonGuardado);
             return Ganadores;
         }
+        // Es el mismo metodo que tiene PersonajesJson, asi que no estaria reutilizando codigo CAMBIAR
         public static bool Existe (string direccionArchivo)
         {
             if (!File.Exists(direccionArchivo)) 
