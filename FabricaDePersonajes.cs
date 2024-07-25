@@ -10,7 +10,7 @@ namespace fabricaDePersonajes
     {
         private static Random random = new Random();
         
-        public static async Task<Personaje> PersonajeAleatorio()
+        public static async Task<Personaje> PersonajeAleatorioAsync()
         {
             //Traigo todo el contenido de la api (dentro estan los personajes)
             DragonBall contenidoApi = await DragonBall.GetApiDragonBallAsync();
