@@ -207,8 +207,210 @@ namespace implementaciones
                 //Console.WriteLine("---------------------------------");
                 
             }
+        }
+        public static void PantallaDeInicio()
+        {
+            //Guardar color original
+            ConsoleColor colorOriginal = Console.ForegroundColor;
+            // Arreglo de cadenas
+            string[] titulo = new string[]
+            {
+                @$"    ____                             ",
+                @$"    ____        ____   _____",
+                @$"   / __ \_________  ____  ____  ____ ",
+                @$"   / __ )____ _/ / /  /__  /",
+                @$"  / / / / ___/ __ `/ __ `/ __ \/ __ \",
+                @$"  / __  / __ `/ / /     / / ",
+                @$" / /_/ / /  / /_/ / /_/ / /_/ / / / /",
+                @$" / /_/ / /_/ / / /     / /__",
+                @$"/_____/_/   \__,_/\__, /\____/_/ /_/ ",
+                @$"/_____/\__,_/_/_/     /____/",
+                @$"              /____/              ",
+                @$"                                           "
+
+            };
+        
+            // Obtener el tamaño de la ventana de la consola
+            int screenWidth = Console.WindowWidth;
+            int screenHeight = Console.WindowHeight;
+
+            // Limpiar la pantalla
+            Console.Clear();
+
+            // Calcular la posición vertical para centrar
+            int verticalStart = (screenHeight - titulo.Length) / 2;
+
+            int cont=0;
+            // Iterar sobre cada linea y calcular la posición centrada
+            for (int i = 0; i < titulo.Length; i = i +2)
+            {
+                    // Calcular el espacio a la izquierda para la primera línea
+                int firstLeftPadding = (screenWidth / 2) - titulo[i].Length;
+
+                // Calcular el espacio a la izquierda para la segunda línea
+                int secondLeftPadding = screenWidth / 2;
+                // Mover el cursor a la posición calculada para la primera línea y escribirla
+            Console.SetCursorPosition(firstLeftPadding, verticalStart + cont);
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(titulo[i]);
+            Thread.Sleep(200);
+
+            // Mover el cursor a la posición calculada para la segunda línea y escribirla
+            Console.SetCursorPosition(secondLeftPadding, verticalStart + cont);
+            if ((i+1) < titulo.Length)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write($"{titulo[i+1]}\n");
+                Thread.Sleep(200);
+            }
+            cont++;
+            }
+            Console.ForegroundColor = colorOriginal;
+
+            string text = "Presiona cualquier tecla para continuar...";
+            int horizontal = (screenWidth - text.Length) / 2;
+            TextoParpadeante(horizontal,verticalStart,cont);
+            
+            Implementacion.Menu2(verticalStart,cont);
+        }
+
+        static void TextoParpadeante(int horizontal, int verticalStart, int Nlinea)
+        {
+            int cont = Nlinea;
+            string text = "Presiona cualquier tecla para continuar...";
+            int cursorLeft = Console.CursorLeft;
+            int cursorTop = Console.CursorTop;
+            bool efecto = true;
+
+                // Crea un nuevo hilo para detectar entradas de teclado
+            while (efecto)
+            {
+                Console.SetCursorPosition(horizontal, verticalStart + cont + 3);
+                Console.Write(text);
+                Thread.Sleep(700); // Espera 500 ms
+
+                Console.SetCursorPosition(horizontal, verticalStart + cont + 3);
+                Console.Write(new string(' ', text.Length));
+                Thread.Sleep(700); // Espera 500 ms
+
+                if (Console.KeyAvailable)
+                {       
+                    efecto = false; // Detener el parpadeo
+                    Console.ReadKey(true); // Leer la tecla sin mostrarla
+                    break;
+                }
+            }
+
             
         }
+        public static void Menu()
+        {
+            Thread.Sleep(500);
+            //Guardar color original
+            ConsoleColor colorOriginal = Console.ForegroundColor;
+            // Arreglo de cadenas
+            string[] titulo = new string[]
+            {
+                @$"    ____                             ",
+                @$"    ____        ____   _____",
+                @$"   / __ \_________  ____  ____  ____ ",
+                @$"   / __ )____ _/ / /  /__  /",
+                @$"  / / / / ___/ __ `/ __ `/ __ \/ __ \",
+                @$"  / __  / __ `/ / /     / / ",
+                @$" / /_/ / /  / /_/ / /_/ / /_/ / / / /",
+                @$" / /_/ / /_/ / / /     / /__",
+                @$"/_____/_/   \__,_/\__, /\____/_/ /_/ ",
+                @$"/_____/\__,_/_/_/     /____/",
+                @$"              /____/              ",
+                @$"                                           "
+
+            };
         
+            // Obtener el tamaño de la ventana de la consola
+            int screenWidth = Console.WindowWidth;
+            int screenHeight = Console.WindowHeight;
+
+            // Limpiar la pantalla
+            Console.Clear();
+
+            // Calcular la posición vertical para centrar
+            int verticalStart = (screenHeight - titulo.Length) / 2;
+
+            int cont=0;
+            // Iterar sobre cada linea y calcular la posición centrada
+            for (int i = 0; i < titulo.Length; i = i +2)
+            {
+                    // Calcular el espacio a la izquierda para la primera línea
+                int firstLeftPadding = (screenWidth / 2) - titulo[i].Length;
+
+                // Calcular el espacio a la izquierda para la segunda línea
+                int secondLeftPadding = screenWidth / 2;
+                // Mover el cursor a la posición calculada para la primera línea y escribirla
+            Console.SetCursorPosition(firstLeftPadding, verticalStart + cont);
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(titulo[i]);
+
+            // Mover el cursor a la posición calculada para la segunda línea y escribirla
+            Console.SetCursorPosition(secondLeftPadding, verticalStart + cont);
+            if ((i+1) < titulo.Length)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write($"{titulo[i+1]}\n");
+            }
+            cont++;
+            }
+            Console.ForegroundColor = colorOriginal;
+            string[] opciones = new string[]
+            {
+                "¡Comienza la batalla!",
+                "1 - Iniciar Juego    ",
+                "2 - Ranking Historico",
+                "3 - Opciones         "
+            };
+            
+            cont = cont + 3;
+            
+            for (int j = 0; j < opciones.Length; j++)
+            {
+                
+                int horizontal = (screenWidth - opciones[j].Length) / 2;
+                Console.SetCursorPosition(horizontal, verticalStart + cont);
+                Console.WriteLine(opciones[j]);
+                if (j==0)
+                {
+                   cont++; 
+                }
+                cont++;
+            }
+            // Pausar para ver el resultado
+            Console.ReadKey();
+        }
+        public static void Menu2(int verticalStart, int cont)
+        {
+            int screenWidth = Console.WindowWidth;
+            int i = cont;
+            string[] opciones = new string[]
+            {
+                "¡Comienza la batalla!",
+                "1 - Iniciar Juego    ",
+                "2 - Ranking Historico",
+                "3 - Opciones         "
+            };
+            
+            i = i + 3;
+            
+            for (int j = 0; j < opciones.Length; j++)
+            {
+                
+                int horizontal = (screenWidth - opciones[j].Length) / 2;
+                Console.SetCursorPosition(horizontal, verticalStart + i);
+                Console.WriteLine(opciones[j]);
+                if (j==0)
+                {
+                   i++; 
+                }
+                i++;
+            }
+        }
     }
 }
