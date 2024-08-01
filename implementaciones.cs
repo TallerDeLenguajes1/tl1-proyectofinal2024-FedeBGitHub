@@ -7,7 +7,7 @@ namespace implementaciones
 {
     class Implementacion
     {
-        public static async Task cargarPersonajes()
+        public static async Task cargarPersonajesAsync()
         {
             List<Personaje> Personajes;
             if (PersonajesJson.Existe(Directorio.JsonPersonajes))
@@ -45,7 +45,7 @@ namespace implementaciones
             int cont = 1;
             foreach (Personaje personaje in Personajes)
             {
-                Console.WriteLine("--------------- {0} ---------------",cont);
+                Console.WriteLine("------------------------- {0} -------------------------",cont);
                 Console.Write("Nombre: ");
                 switch (personaje.Datos.Raza)
                 {
@@ -205,7 +205,7 @@ namespace implementaciones
                 cont++;
                 Console.Write("\n");
                 //Console.WriteLine("---------------------------------");
-                
+                //Thread.Sleep(1000);
             }
         }
         public static void PantallaDeInicio()
@@ -255,7 +255,7 @@ namespace implementaciones
             Console.Write(titulo[i]);
             Thread.Sleep(200);
 
-            // Mover el cursor a la posición calculada para la segunda línea y escribirla
+            // Mover el cursor a la posición calculada para las siguientes lineas
             Console.SetCursorPosition(secondLeftPadding, verticalStart + cont);
             if ((i+1) < titulo.Length)
             {
@@ -271,15 +271,13 @@ namespace implementaciones
             int horizontal = (screenWidth - text.Length) / 2;
             TextoParpadeante(horizontal,verticalStart,cont);
             
-            Implementacion.Menu2(verticalStart,cont);
+            //Implementacion.Menu2(verticalStart,cont);
         }
 
         static void TextoParpadeante(int horizontal, int verticalStart, int Nlinea)
         {
             int cont = Nlinea;
             string text = "Presiona cualquier tecla para continuar...";
-            int cursorLeft = Console.CursorLeft;
-            int cursorTop = Console.CursorTop;
             bool efecto = true;
 
                 // Crea un nuevo hilo para detectar entradas de teclado
@@ -287,11 +285,11 @@ namespace implementaciones
             {
                 Console.SetCursorPosition(horizontal, verticalStart + cont + 3);
                 Console.Write(text);
-                Thread.Sleep(700); // Espera 500 ms
+                Thread.Sleep(700); 
 
                 Console.SetCursorPosition(horizontal, verticalStart + cont + 3);
                 Console.Write(new string(' ', text.Length));
-                Thread.Sleep(700); // Espera 500 ms
+                Thread.Sleep(700); 
 
                 if (Console.KeyAvailable)
                 {       
@@ -300,8 +298,16 @@ namespace implementaciones
                     break;
                 }
             }
-
-            
+        }
+        public static void CentrarTextoHorizontal(string texto)
+        {
+            int anchoConsola = Console.WindowWidth;
+            // Calcular el número de espacios a la izquierda para centrar el texto
+            int espaciosIzquierda = (anchoConsola - texto.Length) / 2;
+            // Crear una cadena con espacios y el texto
+            string textoCentrado = new string(' ', espaciosIzquierda) + texto;
+            // Mostrar el texto centrado
+            Console.Write($"{textoCentrado}\n");
         }
         public static void Menu()
         {
@@ -365,7 +371,8 @@ namespace implementaciones
                 "¡Comienza la batalla!",
                 "1 - Iniciar Juego    ",
                 "2 - Ranking Historico",
-                "3 - Opciones         "
+                "3 - Opciones         ",
+                "4 - Salir            "
             };
             
             cont = cont + 3;
@@ -382,8 +389,6 @@ namespace implementaciones
                 }
                 cont++;
             }
-            // Pausar para ver el resultado
-            Console.ReadKey();
         }
         public static void Menu2(int verticalStart, int cont)
         {
@@ -394,7 +399,8 @@ namespace implementaciones
                 "¡Comienza la batalla!",
                 "1 - Iniciar Juego    ",
                 "2 - Ranking Historico",
-                "3 - Opciones         "
+                "3 - Opciones         ",
+                "4 - Salir            "
             };
             
             i = i + 3;
@@ -411,6 +417,74 @@ namespace implementaciones
                 }
                 i++;
             }
+        }
+
+        public static string colorNombre(Personaje p)
+        {
+            string nombre = "null";
+            switch (p.Datos.Raza)
+                {
+                    case "Human":
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                    break;
+                    case "God":
+                        Console.ForegroundColor = ConsoleColor.White;
+                    break;
+                    case "Saiyan":
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                    break;
+                    case "Namekian":
+                        Console.ForegroundColor = ConsoleColor.Green;
+                    break;
+                    case "Android":
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                    break;
+                    case "Nucleico benigno":
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                    break;
+                    case "Nucleico":
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                    break;
+                    case "Angel":
+                        Console.ForegroundColor = ConsoleColor.Gray; 
+                    break;
+                    case "Jiren Race":
+                        Console.ForegroundColor = ConsoleColor.Red; 
+                    break;
+                    case "Evil janemba":
+                        Console.ForegroundColor = ConsoleColor.Magenta; 
+                    break;
+                    case "Frieza Race":
+                        Console.ForegroundColor = ConsoleColor.Magenta;
+                    break;
+                    case "Majin":
+                        Console.ForegroundColor = ConsoleColor.Magenta;
+                    break;
+                }
+                if (p.Datos.Raza=="Unknown")
+                {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.Write("Z");
+                        Console.ForegroundColor = ConsoleColor.Magenta;
+                        Console.Write("E");
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.Write("N");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write("O ");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("S");
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.Write("A");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write("M");
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.Write("A");
+                }else if(p.Datos.Raza=="Android" && p.Datos.Nombre=="Celula"){
+                    nombre = "CELL";
+                }else{
+                   nombre = p.Datos.Nombre.ToUpper();
+                }
+                return nombre; 
         }
     }
 }
