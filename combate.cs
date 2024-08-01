@@ -1,42 +1,76 @@
 
+using implementaciones;
 using spacePersonaje;
 
 namespace spaceCombates
 {
     public class Combate
     {
-        public static void Combatir(Personaje p1, Personaje p2)
+        public static void Combatir(Personaje Jugador, Personaje Enemigo)
         {
             int turno = 1;
             Random aleatorio = new Random();
             int comienza = aleatorio.Next(0, 2); // 0-Comienza p1 | 1-Comienza p2
 
-            while (p1.Caracteristicas.Salud>0 && p2.Caracteristicas.Salud>0)
+            while (Jugador.Caracteristicas.Salud>0 && Enemigo.Caracteristicas.Salud>0)
             {
                 ConsoleColor colorOriginal = Console.ForegroundColor;  
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("############## TURNO {0} ##############",turno);
+                Console.ForegroundColor = ConsoleColor.Blue;
+                string texto = $"############## TURNO {turno} ##############";
+                Implementacion.CentrarTextoHorizontal(texto);
+                //Console.WriteLine("############## TURNO {0} ##############",turno);
                 Console.ForegroundColor = colorOriginal;
                 if (comienza==0)
                 {
-                    int danioProvocado = Combate.Atacar(p1,p2);
-                    Combate.RecibirAtaque(p1, p2, danioProvocado);
+                    int danioProvocado = Combate.Atacar(Jugador,Enemigo);
+                    Combate.RecibirAtaque(Jugador, Enemigo, danioProvocado);
                     comienza = 1;
                 }else{
-                    int danioProvocado = Combate.Atacar(p2,p1);
-                    Combate.RecibirAtaque(p2, p1, danioProvocado);
+                    int danioProvocado = Combate.Atacar(Enemigo,Jugador);
+                    Combate.RecibirAtaque(Enemigo, Jugador, danioProvocado);
                     comienza = 0;
                 }
                 
                 Console.Write("\n");
                 turno++;
             }
-            Console.WriteLine(@"
-                     _  __       ___  
-                    | |/ /      / _ \ 
-                    | ' <   _  | (_) |
-                    |_|\_\ (_)  \___/ 
-                ");
+
+            string[] victoria = new string[]
+                    {
+                        @" _  __       ___  ",
+                        @"| |/ /      / _ \ ",
+                        @"| ' <   _  | (_) |",
+                        @"|_|\_\ (_)  \___/ ",
+                    };
+            string[] derrota = new string[]
+                    {
+                        @" ____                      _        ",
+                        @"|  _ \  ___ _ __ _ __ ___ | |_ __ _ ",
+                        @"| | | |/ _ \ '__| '__/ _ \| __/ _` |",
+                        @"| |_| |  __/ |  | | | (_) | || (_| |",
+                        @"|____/ \___|_|  |_|  \___/ \__\__,_|",
+                        
+                    };
+
+            if (Jugador.Caracteristicas.Salud>0)
+            {
+                Jugador.Caracteristicas.Salud += 100;
+                Console.Write($"Salud = {Jugador.Caracteristicas.Salud} ");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write($"+ 100 \n");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                foreach (string lineaV in victoria)
+                {
+                    Implementacion.CentrarTextoHorizontal(lineaV);
+                }
+            }else {
+                Console.ForegroundColor = ConsoleColor.Red;
+                foreach (string lineaD in derrota)
+                {
+                    Implementacion.CentrarTextoHorizontal(lineaD);
+                }
+            }
+            Console.ResetColor();
         }
         public static int Atacar(Personaje atacante, Personaje defensor)
         {
