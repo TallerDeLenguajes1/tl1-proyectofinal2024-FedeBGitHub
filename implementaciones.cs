@@ -462,7 +462,8 @@ namespace implementaciones
                     break;
                 }
                 if (p.Datos.Raza=="Unknown")
-                {
+                { 
+                        nombre = "Zeno Sama";
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.Write("Z");
                         Console.ForegroundColor = ConsoleColor.Magenta;
@@ -479,10 +480,11 @@ namespace implementaciones
                         Console.Write("M");
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.Write("A");
-                }else if(p.Datos.Raza=="Android" && p.Datos.Nombre=="Celula"){
-                    nombre = "CELL";
                 }else{
                    nombre = p.Datos.Nombre.ToUpper();
+                }
+                if(p.Datos.Raza=="Android" && p.Datos.Nombre=="Celula"){
+                    nombre = "CELL";
                 }
                 return nombre; 
         }
