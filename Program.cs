@@ -51,7 +51,7 @@ do {
             
             do
             {
-                System.Console.WriteLine("################### ENEMIGO {0} ###################",cantCombates);
+                Console.WriteLine("################### ENEMIGO {0} ###################",cantCombates);
                 Personaje enemigo = await FabricaDePersonajes.PersonajeAleatorioAsync();
                 string nomJ = PersonajesJugables[opcionPersonajes].Datos.Nombre;
                 string[] vs = new string[]
@@ -104,7 +104,7 @@ do {
                 int posicionTresCuartos = (anchoConsola * 3 / 4) - textoDerecha.Length / 2;
                 string nomIzquierdo="";
                 string lineaTexto="";
-                if (nomJ !="Zeno-Sama")
+                if (nomJ !="Zeno")
                 {
                     nomIzquierdo= Implementacion.colorNombre(PersonajesJugables[opcionPersonajes]);
                 
@@ -133,7 +133,6 @@ do {
                 //Detener 
                 Console.ReadKey();
 
-        // Mostrar la línea de texto en la consola
             //----------------------------------------
             
                 Combate.Combatir(PersonajesJugables[opcionPersonajes],enemigo);
@@ -141,9 +140,11 @@ do {
                 Console.WriteLine("PRESIONE UNA TECLA PARA CONTINUAR");
                 Console.ReadKey();
             } while (cantCombates<=3 );
+//Historial------------------------------------------------
             if (PersonajesJugables[opcionPersonajes].Caracteristicas.Salud>0)
             {
-                Console.WriteLine("Al final ganaste");
+                Personaje ganador = PersonajesJugables[opcionPersonajes];
+                HistorialJson.GuardarGanador(ganador,Directorio.JsonHistorial);
             }else
                 {
                     Console.WriteLine("Perdiste mi ray");
@@ -153,9 +154,11 @@ do {
         break;
         case '2':
             Console.WriteLine("opcion 2 swich");
+            Console.ReadKey(true);
         break;
         case '3':
             Console.WriteLine("opcion 3 swich");
+            Console.ReadKey(true);
         break;
     }
 }while(key.KeyChar != '4');
