@@ -73,7 +73,7 @@ namespace implementaciones
                 Console.WriteLine($"SALUD: {salud}    KI: {ki}    FUERZA: {fuerza}    VELOCIDAD: {velocidad}    DESTREZA:{destreza}    RESISTENCIA: {resistencia}");
                 cont++;
                 Console.Write("\n");
-                //Thread.Sleep(1000);
+                Thread.Sleep(1000);
             }
         }
         public static void PantallaDeInicio()
@@ -182,6 +182,37 @@ namespace implementaciones
 
                 // Borrar la línea anterior
                 Console.SetCursorPosition(0, Console.CursorTop);
+                Console.Write(new string(' ', texto.Length));
+
+                // Esperar medio segundo antes de volver a mostrar el texto
+                Thread.Sleep(800);
+            }
+
+            // Limpiar la entrada del teclado para evitar capturar la tecla presionada
+            Console.ReadKey(true);
+            Console.Write("\n");
+
+        }
+        public static void PulsarParaContinuar(string texto)
+        {
+            
+            // Obtén el tamaño de la consola
+            int consoleWidth = Console.WindowWidth;
+            int consoleHeight = Console.WindowHeight;
+
+            // Mueve el cursor a la posición inferior izquierda
+            //Console.SetCursorPosition(0, consoleHeight - 2);
+            while (!Console.KeyAvailable) // Continúa el bucle hasta que se presione una tecla
+            {
+                // Mostrar el texto
+                Console.SetCursorPosition(0, consoleHeight - 2);
+                Console.Write(texto);
+                
+                // Esperar medio segundo (500 milisegundos)
+                Thread.Sleep(800);
+
+                // Borrar la línea anterior
+                Console.SetCursorPosition(0, consoleHeight - 2);
                 Console.Write(new string(' ', texto.Length));
 
                 // Esperar medio segundo antes de volver a mostrar el texto
@@ -539,7 +570,6 @@ namespace implementaciones
                 }else{
                     textoDerecha = Implementacion.colorNombre(enemigo);
                 }
-                Console.Write("\n\n\n\n\n");
                 Console.ResetColor();
         }
     }

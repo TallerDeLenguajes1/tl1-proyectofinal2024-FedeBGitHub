@@ -53,11 +53,11 @@ do {
                 Personaje personajeJugador = PersonajesJugables[opcionPersonajes];
             //----------------- Pantalla de versus -----------------
                 Implementacion.pantallaVS(personajeJugador,enemigo);
-                Implementacion.ParpadeoTexto("PRESIONE UNA TECLA PARA CONTINUAR");
+                Implementacion.PulsarParaContinuar("PULSE UNA TECLA PARA CONTINUAR");
             //----------------- Combate -----------------
                 Combate.Combatir(PersonajesJugables[opcionPersonajes],enemigo);
                 cantCombates++;
-                Implementacion.ParpadeoTexto("PRESIONE UNA TECLA PARA CONTINUAR");
+                Implementacion.PulsarParaContinuar("PULSE UNA TECLA PARA CONTINUAR");
             } while (cantCombates<=3 );
             //----------------- Historial -----------------
             if (PersonajesJugables[opcionPersonajes].Caracteristicas.Salud>0)
@@ -66,14 +66,16 @@ do {
                 HistorialJson.GuardarGanador(ganador,Directorio.JsonHistorial);
             }else
                 {
-                    
                     Console.WriteLine("Perdiste mi ray");
                 }
-            Console.ReadKey(true);
+            Implementacion.PulsarParaContinuar("PRESIONE UNA TECLA PARA CONTINUA");
+            
 
         break;
         case '2':
+            
             Console.WriteLine("opcion 2 swich");
+            
             Console.ReadKey(true);
         break;
         case '3':
