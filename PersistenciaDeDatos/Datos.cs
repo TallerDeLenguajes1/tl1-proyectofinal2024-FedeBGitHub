@@ -1,5 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using implementaciones;
+using spaceDirecciones;
 using spacePersonaje;
 
 
@@ -46,30 +48,45 @@ namespace spacePersistenciaDeDatos
 
         public static void GuardarGanador(Personaje personaje, string direccionArchivo)
         {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Thread.Sleep(800);
+            Console.Write("\n\n");
+            Implementacion.CentrarTextoHorizontal("¡ENTRASTE AL RANKING HISTORICO DE GANADORES!");
+            Console.ResetColor();
+            Console.WriteLine("\n\nLograste derrotar a todos los oponentes y convertirte en el guerrero más fuerte del universo , ahora vas a quedar en la historia como uno de los mejores peleadores \n\n");
+            
             // Guardar los datos del personaje tanto Datos como Caracteristicas
-            HistorialJson ganador = new HistorialJson();
-            ganador.Ganador = personaje;
-            ganador.Fecha = DateTime.Now;
+            HistorialJson ganadorH = new HistorialJson();
+            ganadorH.Ganador = personaje;
+            ganadorH.Fecha = DateTime.Now;
             // Si gana un jugador guardar un nombre que el va a intruducir
-            Console.Write("Ingrese su nombre/apodo para el historial: ");
-            ganador.NombreGanador = Console.ReadLine();
-            // Si gana la computadora aclaro que gano la consola
+            Thread.Sleep(1000);
+            Console.Write("\nIngrese su nombre/apodo: ");
+            ganadorH.NombreGanador = Console.ReadLine();
 
             List<HistorialJson> historial = new List<HistorialJson>();
-            
-            if (!File.Exists(direccionArchivo))
+             // Comprobar si la carpeta existe, si no, crearla
+             
+            if (!Directory.Exists(Directorio.CarpetaHistorial))
             {
-                Console.WriteLine("No hay historial");
-                historial.Add(ganador); 
+                Directory.CreateDirectory(Directorio.CarpetaHistorial);
+                Console.WriteLine("Carpeta creada");
+            }
+    
+            if (!HistorialJson.Existe(direccionArchivo))
+            {
+                Console.WriteLine("Guardando Historial...");
+                historial.Add(ganadorH); 
                 string historialJson = JsonSerializer.Serialize(historial); 
                 File.WriteAllText(direccionArchivo,historialJson);
             }else{
-                Console.WriteLine("Ya hay al menos un personaje ganador guardado");
-                string historialGuardado = File.ReadAllText(direccionArchivo);
-                historial = JsonSerializer.Deserialize<List<HistorialJson>>(historialGuardado);
-                historial.Add(ganador);
-                string jsonP = JsonSerializer.Serialize(historial);
-                File.WriteAllText(direccionArchivo,jsonP);
+                    //Console.WriteLine("Ya hay al menos un personaje ganador guardado");
+                    string historialGuardado = File.ReadAllText(direccionArchivo);
+                    historial = JsonSerializer.Deserialize<List<HistorialJson>>(historialGuardado);
+                    historial.Add(ganadorH);
+                    string jsonP = JsonSerializer.Serialize(historial);
+                    File.WriteAllText(direccionArchivo,jsonP);   
             }
         }
         public static List<HistorialJson> LeerGanadores (string direccionArchivo)
@@ -91,6 +108,5 @@ namespace spacePersistenciaDeDatos
             {return false;}
             return true;
         }
-        
     }
 }
