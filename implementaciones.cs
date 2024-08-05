@@ -73,7 +73,7 @@ namespace implementaciones
                 Console.WriteLine($"SALUD: {salud}    KI: {ki}    FUERZA: {fuerza}    VELOCIDAD: {velocidad}    DESTREZA:{destreza}    RESISTENCIA: {resistencia}");
                 cont++;
                 Console.Write("\n");
-                Thread.Sleep(1000);
+                //Thread.Sleep(1000);
             }
         }
         public static void PantallaDeInicio()
@@ -137,6 +137,8 @@ namespace implementaciones
 
             string text = "Presiona cualquier tecla para continuar...";
             int horizontal = (screenWidth - text.Length) / 2;
+
+            //Texto parpadeante
             TextoParpadeante(horizontal,verticalStart,cont);
             
             //Implementacion.Menu2(verticalStart,cont);
@@ -166,6 +168,30 @@ namespace implementaciones
                     break;
                 }
             }
+        }
+        public static void ParpadeoTexto(string texto)
+        {
+            while (!Console.KeyAvailable) // Continúa el bucle hasta que se presione una tecla
+            {
+                // Mostrar el texto
+                Console.SetCursorPosition(0, Console.CursorTop);
+                Console.Write(texto);
+                
+                // Esperar medio segundo (500 milisegundos)
+                Thread.Sleep(800);
+
+                // Borrar la línea anterior
+                Console.SetCursorPosition(0, Console.CursorTop);
+                Console.Write(new string(' ', texto.Length));
+
+                // Esperar medio segundo antes de volver a mostrar el texto
+                Thread.Sleep(800);
+            }
+
+            // Limpiar la entrada del teclado para evitar capturar la tecla presionada
+            Console.ReadKey(true);
+            Console.Write("\n");
+
         }
         public static void CentrarTextoHorizontal(string texto)
         {
@@ -435,6 +461,86 @@ namespace implementaciones
                     Console.Write("e");
                 break;        
             }
+        }
+        public static void pantallaVS (Personaje personajeJugador, Personaje enemigo)
+        {
+            string[] vs = new string[]
+                    {
+                        @"__      __   _____ ",
+                        @"\ \    / /  / ____|",
+                        @" \ \  / /  | (___  ",
+                        @"  \ \/ /    \___ \ ",
+                        @"   \  /     ____) |",
+                        @"    \/     |_____/ "
+                    };
+            //------------------------------------------
+                //Console.ForegroundColor = ConsoleColor.White;
+                Console.Clear();
+                // Obtener el tamaño de la ventana de la consola
+                int consoleWidth = Console.WindowWidth;
+                int consoleHeight = Console.WindowHeight;
+
+                // Calcular el espacio necesario para centrar verticalmente
+                int verticalPadding = (consoleHeight - vs.Length) / 2;
+
+                // Imprimir líneas vacías antes del texto para centrar verticalmente
+                for (int i = 0; i < verticalPadding; i++)
+                {
+                    Console.WriteLine();
+                }
+
+                // Imprimir cada línea del texto centrada horizontalmente
+                foreach (string line in vs)
+                {
+                    // Calcular el espacio necesario para centrar horizontalmente
+                    int horizontalPadding = (consoleWidth - line.Length) / 2;
+
+                    // Imprimir espacios vacíos antes de la línea para centrar horizontalmente
+                    Console.WriteLine(new string(' ', horizontalPadding) + line);
+                }
+            
+                string textoIzquierda = personajeJugador.Datos.Nombre;
+                string textoDerecha = enemigo.Datos.Nombre;
+
+
+
+                 //Obtener el ancho de la consola
+                int anchoConsola = Console.WindowWidth;
+
+                // Calcular la posición del texto en la 1/4 parte de la pantalla
+                int posicionCuarto = anchoConsola / 4 - textoIzquierda.Length / 2;
+
+                // Calcular la posición del texto en la 3/4 parte de la pantalla
+                int posicionTresCuartos = (anchoConsola * 3 / 4) - textoDerecha.Length / 2;
+                string nomIzquierdo="";
+                string lineaTexto="";
+                //Verifica que el personaje de izquierda no sea un caso especial
+                if (personajeJugador.Datos.Nombre !="Zeno")
+                {
+                    nomIzquierdo= Implementacion.colorNombre(personajeJugador);
+                
+                    // Crear la línea con los dos textos centrados
+                    lineaTexto = new string(' ', posicionCuarto) + textoIzquierda.ToUpper() 
+                                    + new string(' ', posicionTresCuartos - posicionCuarto - nomIzquierdo.Length) ;
+                    Console.Write(lineaTexto);        
+                }else
+                    {
+                        lineaTexto = new string(' ', posicionCuarto) ;
+                        Console.Write(lineaTexto);
+                        nomIzquierdo = Implementacion.colorNombre(personajeJugador);
+                        lineaTexto = new string(' ', posicionTresCuartos - posicionCuarto - nomIzquierdo.Length);
+                        Console.Write(lineaTexto);
+                    }
+                // Verifica que el personaje de la derecha no sea un caso especial
+                if (textoDerecha != "Zeno")
+                {
+                    textoDerecha= Implementacion.colorNombre(enemigo);
+                    Console.Write($"{textoDerecha.ToUpper()}");
+                }else{
+                    textoDerecha = Implementacion.colorNombre(enemigo);
+                }
+                Console.Write("\n\n\n\n\n");
+                Console.ResetColor();
         }
     }
 }
