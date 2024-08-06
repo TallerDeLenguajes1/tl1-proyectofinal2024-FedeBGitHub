@@ -8,6 +8,7 @@ using spaceDirecciones;
 using System.Threading.Tasks.Dataflow;
 using implementaciones;
 using spaceCombates;
+
 using Microsoft.VisualBasic;
 
 
@@ -23,7 +24,6 @@ do {
         key = Console.ReadKey(true);
     }
     Console.Clear();
-
 
     switch (key.KeyChar)
     {
@@ -46,21 +46,23 @@ do {
             //Leo todos los personajes Jugables
             List<Personaje> PersonajesJugables = PersonajesJson.LeerPersonajes(Directorio.JsonPersonajes);
             int cantCombates = 1;
-
+            bool sigue;
             do
             {
                 Personaje enemigo = await FabricaDePersonajes.PersonajeAleatorioAsync();
                 Personaje personajeJugador = PersonajesJugables[opcionPersonajes];
             //----------------- Pantalla de versus -----------------
                 Implementacion.PantallaVS(personajeJugador,enemigo);
-                Implementacion.PulsarParaContinuar("PULSE UNA TECLA PARA CONTINUAR1");
+                Console.Write("\n\n");
+                Implementacion.PulsarParaContinuar("PULSE UNA TECLA PARA CONTINUAR");
             //----------------- Combate -----------------
-                Combate.Combatir(PersonajesJugables[opcionPersonajes],enemigo);
+                sigue = Combate.Combatir(PersonajesJugables[opcionPersonajes],enemigo);
                 cantCombates++;
+                Console.Write("\n");
                 Implementacion.PulsarParaContinuar("PULSE UNA TECLA PARA CONTINUAR2");
-            } while (cantCombates<=3 );
+            } while (cantCombates<=3 && sigue==true);
             //----------------- Historial -----------------
-            if (PersonajesJugables[opcionPersonajes].Caracteristicas.Salud>0)
+            if (sigue==true)
             {
                 Personaje ganador = PersonajesJugables[opcionPersonajes];
                 HistorialJson.GuardarGanador(ganador,Directorio.JsonHistorial);
@@ -68,9 +70,8 @@ do {
                 {
                     Console.WriteLine("Perdiste mi ray");
                 }
-            Implementacion.PulsarParaContinuar("PRESIONE UNA TECLA PARA CONTINUAR");
-            
-
+            Console.ReadKey(true);
+            //Implementacion.PulsarParaContinuar("PRESIONE UNA TECLA PARA CONTINUAR");
         break;
         case '2':
             Implementacion.MostrarHistorial();

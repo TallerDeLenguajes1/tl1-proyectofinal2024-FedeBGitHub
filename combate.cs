@@ -6,8 +6,9 @@ namespace spaceCombates
 {
     public class Combate
     {
-        public static void Combatir(Personaje Jugador, Personaje Enemigo)
+        public static bool Combatir(Personaje Jugador, Personaje Enemigo)
         {
+            bool ganador= true;
             int turno = 1;
             Random aleatorio = new Random();
             int comienza = aleatorio.Next(0, 2); // 0-Comienza p1 | 1-Comienza p2
@@ -37,10 +38,12 @@ namespace spaceCombates
 
             string[] victoria = new string[]
                     {
+                        @"                  ",
                         @" _  __       ___  ",
                         @"| |/ /      / _ \ ",
                         @"| ' <   _  | (_) |",
                         @"|_|\_\ (_)  \___/ ",
+                        
                     };
             string[] derrota = new string[]
                     {
@@ -51,7 +54,24 @@ namespace spaceCombates
                         @"|____/ \___|_|  |_|  \___/ \__\__,_|",
                         
                     };
+            
+                
+                //Console.ForegroundColor = ConsoleColor.White;
+                Console.Clear();
+                // Obtener el tamaño de la ventana de la consola
+                int consoleWidth = Console.WindowWidth;
+                int consoleHeight = Console.WindowHeight;
 
+                // Calcular el espacio necesario para centrar verticalmente
+                int verticalPadding = (consoleHeight - derrota.Length) / 2;
+
+                // Imprimir líneas vacías antes del texto para centrar verticalmente
+                for (int i = 0; i < verticalPadding; i++)
+                {
+                    Console.WriteLine();
+                }
+
+                
             if (Jugador.Caracteristicas.Salud>0)
             {
                 Jugador.Caracteristicas.Salud += 100;
@@ -59,18 +79,22 @@ namespace spaceCombates
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write($"+ 100 \n");
                 Console.ForegroundColor = ConsoleColor.Yellow;
+                // Imprimir cada línea del texto centrada horizontalmente
                 foreach (string lineaV in victoria)
                 {
                     Implementacion.CentrarTextoHorizontal(lineaV);
                 }
-            }else {
+                ganador = true;
+            }else{
                 Console.ForegroundColor = ConsoleColor.Red;
                 foreach (string lineaD in derrota)
                 {
                     Implementacion.CentrarTextoHorizontal(lineaD);
                 }
+                ganador = false;
             }
             Console.ResetColor();
+            return ganador;
         }
         public static int Atacar(Personaje atacante, Personaje defensor)
         {
