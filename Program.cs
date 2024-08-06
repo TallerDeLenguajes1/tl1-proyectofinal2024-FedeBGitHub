@@ -89,7 +89,6 @@ do {
                     Console.WriteLine("Perdiste mi ray");
                 }
             Console.ReadKey(true);
-            //Implementacion.PulsarParaContinuar("PRESIONE UNA TECLA PARA CONTINUAR");
         break;
         case '2':
             Implementacion.MostrarHistorial();
@@ -97,7 +96,6 @@ do {
         break;
         case '3':
             Implementacion.Opcines();
-            Implementacion.PulsarParaContinuar("PULSE UNA TECLA PARA SALIR");
         break;
     }
 }while(key.KeyChar != '4');

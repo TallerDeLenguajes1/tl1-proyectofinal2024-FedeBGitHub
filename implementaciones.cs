@@ -626,19 +626,78 @@ namespace implementaciones
         public static void Opcines()
         {
             int elegir;
+            do{
+            string[] ranking = new string[]
+                    {
+                        @"  ___                   _                              ",
+                        @" / _ \   _ __     ___  (_)   ___    _ __     ___   ___ ",
+                        @"| | | | | '_ \   / __| | |  / _ \  | '_ \   / _ \ / __|",
+                        @"| |_| | | |_) | | (__  | | | (_) | | | | | |  __/ \__ \",
+                        @" \___/  | .__/   \___| |_|  \___/  |_| |_|  \___| |___/",
+                        @"        |_|                                            "
+                    };    
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            foreach (string linea in ranking)
+            {
+                Implementacion.CentrarTextoHorizontal(linea);
+            }
+
+            Console.ResetColor();
+
+            
             Opcion opciones = Opcion.leerOpciones();
-            Console.WriteLine("Dificultad");
-            Console.WriteLine("     1 - Facil (5 Enemigos)");
-            Console.WriteLine("     2 - Medio (8 Enemigos)");
-            Console.WriteLine("     3 - Dificil (10 Enemigos)");
+            string[] stringOp = new string[]
+                    {
+                        @"Dificultad",
+                        @"          ",
+                        @"1 - Facil (5 Enemigos)   ",
+                        @"2 - Medio (8 Enemigos)   ",
+                        @"3 - Dificil (10 Enemigos)",
+                        @"4 - Salir",
+                    };    
+        
+            // Obtener el tamaño de la ventana de la consola
+                int consoleWidth = Console.WindowWidth;
+                int consoleHeight = Console.WindowHeight;
+
+                // Calcular el espacio necesario para centrar verticalmente
+                int verticalPadding = (consoleHeight - stringOp.Length - ranking.Length -4) / 2;
+
+                // Imprimir líneas vacías antes del texto para centrar verticalmente
+                for (int i = 0; i < verticalPadding; i++)
+                {
+                    Console.WriteLine();
+                }
+            for (int i = 0; i < stringOp.Length; i++)
+            {
+                if (opciones.Dificultad=='F' && i==2)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                }
+                if (opciones.Dificultad=='M' && i==3)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                }
+                if (opciones.Dificultad=='D' && i==4)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                }
+                Implementacion.CentrarTextoHorizontal(stringOp[i]);
+                Console.ResetColor();
+            }
+
             do
             {
                 int.TryParse(Console.ReadLine(), out elegir);
-                if(elegir<1 || elegir>3)
+                if(elegir<1 || elegir>4)
                 {
                     Console.Write("Elige una opcion valida");
                 }
-            } while (elegir<1 || elegir>3);
+            } while (elegir<1 || elegir>4);
+            if (elegir == 4)
+            {
+                return;
+            }
             switch (elegir)
             {
                 case 1:opciones.Dificultad='F';break;
@@ -646,6 +705,10 @@ namespace implementaciones
                 case 3:opciones.Dificultad='D';break;
             }
             Opcion.GuardarOpciones(opciones);
+            Console.Clear();
+        }while(elegir != 4);
+        
+
         }
 
         
