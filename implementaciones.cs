@@ -2,6 +2,8 @@ using spacePersonaje;
 using spacePersistenciaDeDatos;
 using spaceDirecciones;
 using fabricaDePersonajes;
+using System.Text.Json;
+using System.Drawing;
 
 namespace implementaciones
 {
@@ -43,11 +45,13 @@ namespace implementaciones
             //Guardar color original
             ConsoleColor colorOriginal = Console.ForegroundColor;
             int cont = 1;
-            string nom;
             foreach (Personaje personaje in Personajes)
             {
                 Console.WriteLine("------------------------- {0} -------------------------",cont);
                 Console.Write("Nombre: ");
+                Implementacion.colorNombre(personaje);
+                Console.Write("\n");
+                /*
                 // Aplico el color al nombre
                 nom = Implementacion.colorNombre(personaje);
                 if (personaje.Datos.Nombre != "Zeno")
@@ -55,7 +59,7 @@ namespace implementaciones
                     Console.Write(nom);
                 }
                 Console.Write("\n");
-                
+                */
                 // Restaurar el color de texto original
                 Console.ForegroundColor = colorOriginal;
                 Console.Write("Raza: ");
@@ -197,11 +201,9 @@ namespace implementaciones
         {
             
             // Obtén el tamaño de la consola
-            int consoleWidth = Console.WindowWidth;
             int consoleHeight = Console.WindowHeight;
 
             // Mueve el cursor a la posición inferior izquierda
-            //Console.SetCursorPosition(0, consoleHeight - 2);
             while (!Console.KeyAvailable) // Continúa el bucle hasta que se presione una tecla
             {
                 // Mostrar el texto
@@ -344,7 +346,7 @@ namespace implementaciones
             }
         }
 
-        public static string colorNombre(Personaje p)
+        public static void colorNombre(Personaje p)
         {
             string nombre = "null";
             switch (p.Datos.Raza)
@@ -405,13 +407,16 @@ namespace implementaciones
                         Console.Write("M");
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.Write("A");
+                        Console.ResetColor();
+                        return;
                 }else{
                     nombre = p.Datos.Nombre.ToUpper();
                 }
                 if(p.Datos.Raza=="Android" && p.Datos.Nombre=="Celula"){
                     nombre = "CELL";
                 }
-                return nombre; 
+                Console.Write(nombre); 
+                Console.ResetColor();
         }
         public static void colorRaza(Personaje p)
         {
@@ -490,10 +495,11 @@ namespace implementaciones
                     Console.Write("t");
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("e");
-                break;        
+                break;     
             }
+            Console.ResetColor();   
         }
-        public static void pantallaVS (Personaje personajeJugador, Personaje enemigo)
+        public static void PantallaVS (Personaje personajeJugador, Personaje enemigo)
         {
             string[] vs = new string[]
                     {
@@ -534,7 +540,6 @@ namespace implementaciones
                 string textoDerecha = enemigo.Datos.Nombre;
 
 
-
                  //Obtener el ancho de la consola
                 int anchoConsola = Console.WindowWidth;
 
@@ -543,34 +548,83 @@ namespace implementaciones
 
                 // Calcular la posición del texto en la 3/4 parte de la pantalla
                 int posicionTresCuartos = (anchoConsola * 3 / 4) - textoDerecha.Length / 2;
-                string nomIzquierdo="";
-                string lineaTexto="";
+                
                 //Verifica que el personaje de izquierda no sea un caso especial
+                    string lineaTexto = new string(' ', posicionCuarto) ;
+                    Console.Write(lineaTexto);
+                    Implementacion.colorNombre(personajeJugador);
                 if (personajeJugador.Datos.Nombre !="Zeno")
                 {
-                    nomIzquierdo= Implementacion.colorNombre(personajeJugador);
-                
-                    // Crear la línea con los dos textos centrados
-                    lineaTexto = new string(' ', posicionCuarto) + textoIzquierda.ToUpper() 
-                                    + new string(' ', posicionTresCuartos - posicionCuarto - nomIzquierdo.Length) ;
-                    Console.Write(lineaTexto);        
+                    lineaTexto = new string(' ', posicionTresCuartos - posicionCuarto - textoIzquierda.Length);      
                 }else
                     {
-                        lineaTexto = new string(' ', posicionCuarto) ;
-                        Console.Write(lineaTexto);
-                        nomIzquierdo = Implementacion.colorNombre(personajeJugador);
+                        string nomIzquierdo ="Zeno Sama";
                         lineaTexto = new string(' ', posicionTresCuartos - posicionCuarto - nomIzquierdo.Length);
-                        Console.Write(lineaTexto);
                     }
-                // Verifica que el personaje de la derecha no sea un caso especial
-                if (textoDerecha != "Zeno")
-                {
-                    textoDerecha= Implementacion.colorNombre(enemigo);
-                    Console.Write($"{textoDerecha.ToUpper()}");
-                }else{
-                    textoDerecha = Implementacion.colorNombre(enemigo);
-                }
+                    Console.Write(lineaTexto);  
+                // Muestra el personaje de la derecha
+                    Implementacion.colorNombre(enemigo);
+                
                 Console.ResetColor();
+        }
+        public static void MostrarHistorial()
+        {
+
+            string[] ranking = new string[]
+                    {
+                        @" ____                    _      _                 ",
+                        @"|  _ \    __ _   _ __   | | __ (_)  _ __     __ _ ",
+                        @"| |_) |  / _` | | '_ \  | |/ / | | | '_ \   / _` |",
+                        @"|  _ <  | (_| | | | | | |   <  | | | | | | | (_| |",
+                        @"|_| \_\  \__,_| |_| |_| |_|\_\ |_| |_| |_|  \__, |",
+                        @"                                            |___/ "
+                    };
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            foreach (string linea in ranking)
+            {
+                Implementacion.CentrarTextoHorizontal(linea);
+            }
+            Console.ResetColor();
+
+            if (!Directory.Exists(Directorio.CarpetaHistorial) || 
+                !HistorialJson.Existe(Directorio.JsonHistorial))
+            {
+                int consoleHeight = Console.WindowHeight;
+                Console.SetCursorPosition(0, consoleHeight/2);
+                Implementacion.CentrarTextoHorizontal("No hay historial");
+            }else {
+                Console.Write("\n\n\n");
+                List<HistorialJson> Historiales = new List<HistorialJson>();
+                // Leo lo que tengo en el Json
+                string JsonHistorial = File.ReadAllText(Directorio.JsonHistorial);
+                // Deserealizo en la lista de historiales
+                Historiales = JsonSerializer.Deserialize<List<HistorialJson>>(JsonHistorial);
+                foreach (HistorialJson historial in Historiales)
+                {
+                    Console.WriteLine("Nombre: "+historial.NombreGanador+"      Fecha: "+historial.Fecha.ToString("d")+"        Hora: " + historial.Fecha.ToString("t"));
+                    Console.Write("Personaje Usado: ");
+                    //Console.Write(historial.PersonajeGanador.Datos.Nombre);
+                    Implementacion.colorNombre(historial.PersonajeGanador);
+                    
+                    Console.Write("     Raza: ");
+                    Implementacion.colorRaza(historial.PersonajeGanador);
+                    Console.Write("\n");
+                    int salud = historial.PersonajeGanador.Caracteristicas.Salud;
+                    int ki = historial.PersonajeGanador.Caracteristicas.Ki;
+                    int fuerza = historial.PersonajeGanador.Caracteristicas.Fuerza;
+                    int velocidad = historial.PersonajeGanador.Caracteristicas.Velocidad;;
+                    int destreza =historial.PersonajeGanador.Caracteristicas.Destreza;
+                    int resistencia =historial.PersonajeGanador.Caracteristicas.Resistencia;
+                    Console.WriteLine($"SALUD: {salud}    KI: {ki}    FUERZA: {fuerza}    VELOCIDAD: {velocidad}    DESTREZA:{destreza}    RESISTENCIA: {resistencia}");
+                    
+                    //Separar con guiones
+                    int width = Console.WindowWidth; // Obtener el ancho de la consola
+                    string line = new string('-', width); // Crear una cadena de guiones con el ancho de la consola
+
+                    Console.WriteLine(line); // Imprimir la línea completa de guiones
+                }
+
+            }
         }
     }
 }

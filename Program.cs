@@ -52,12 +52,12 @@ do {
                 Personaje enemigo = await FabricaDePersonajes.PersonajeAleatorioAsync();
                 Personaje personajeJugador = PersonajesJugables[opcionPersonajes];
             //----------------- Pantalla de versus -----------------
-                Implementacion.pantallaVS(personajeJugador,enemigo);
-                Implementacion.PulsarParaContinuar("PULSE UNA TECLA PARA CONTINUAR");
+                Implementacion.PantallaVS(personajeJugador,enemigo);
+                Implementacion.PulsarParaContinuar("PULSE UNA TECLA PARA CONTINUAR1");
             //----------------- Combate -----------------
                 Combate.Combatir(PersonajesJugables[opcionPersonajes],enemigo);
                 cantCombates++;
-                Implementacion.PulsarParaContinuar("PULSE UNA TECLA PARA CONTINUAR");
+                Implementacion.PulsarParaContinuar("PULSE UNA TECLA PARA CONTINUAR2");
             } while (cantCombates<=3 );
             //----------------- Historial -----------------
             if (PersonajesJugables[opcionPersonajes].Caracteristicas.Salud>0)
@@ -68,15 +68,13 @@ do {
                 {
                     Console.WriteLine("Perdiste mi ray");
                 }
-            Implementacion.PulsarParaContinuar("PRESIONE UNA TECLA PARA CONTINUA");
+            Implementacion.PulsarParaContinuar("PRESIONE UNA TECLA PARA CONTINUAR");
             
 
         break;
         case '2':
-            
-            Console.WriteLine("opcion 2 swich");
-            
-            Console.ReadKey(true);
+            Implementacion.MostrarHistorial();
+            Implementacion.PulsarParaContinuar("PULSE UNA TECLA PARA SALIR");
         break;
         case '3':
             Console.WriteLine("opcion 3 swich");
