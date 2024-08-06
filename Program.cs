@@ -8,10 +8,11 @@ using spaceDirecciones;
 using System.Threading.Tasks.Dataflow;
 using implementaciones;
 using spaceCombates;
-
+using spaceOpciones;
 using Microsoft.VisualBasic;
 
 
+Opcion opciones = Opcion.leerOpciones();
 Implementacion.PantallaDeInicio();
 ConsoleKeyInfo key;
 do {
@@ -28,11 +29,12 @@ do {
     switch (key.KeyChar)
     {
         case '1':
+            //Carga y Mustra de Personajes
             await Implementacion.cargarPersonajesAsync();
             Implementacion.MostrarPersonajes();
             int opcionPersonajes;
+            //Elegir Personaje 
             Implementacion.CentrarTextoHorizontal("------------------ELEGIR PERSONAJE------------------");
-            
             do
             {
                 int.TryParse(Console.ReadLine(), out opcionPersonajes);
@@ -41,12 +43,28 @@ do {
                     Console.Write("Vegeta: !Acaso quieres romper el juego Insecto!, elige de nuevo: ");
                 }
             } while (opcionPersonajes<1 || opcionPersonajes>10);
-
             opcionPersonajes--;
-            //Leo todos los personajes Jugables
+
+            //Leer todos los personajes Jugables
             List<Personaje> PersonajesJugables = PersonajesJson.LeerPersonajes(Directorio.JsonPersonajes);
-            int cantCombates = 1;
+
+            int numCombate = 1;
             bool sigue;
+            int cantCombates = 1;
+            //Aplicar dificultad
+            switch (opciones.Dificultad)
+            {
+                case 'F':
+                    cantCombates = 5;
+                break;
+                case 'M':
+                    cantCombates = 8;
+                break;
+                case 'D':
+                    cantCombates = 10;
+                break;
+            }
+            //----------------------------
             do
             {
                 Personaje enemigo = await FabricaDePersonajes.PersonajeAleatorioAsync();
@@ -57,10 +75,10 @@ do {
                 Implementacion.PulsarParaContinuar("PULSE UNA TECLA PARA CONTINUAR");
             //----------------- Combate -----------------
                 sigue = Combate.Combatir(PersonajesJugables[opcionPersonajes],enemigo);
-                cantCombates++;
+                numCombate++;
                 Console.Write("\n");
                 Implementacion.PulsarParaContinuar("PULSE UNA TECLA PARA CONTINUAR2");
-            } while (cantCombates<=3 && sigue==true);
+            } while (numCombate<=cantCombates && sigue==true);
             //----------------- Historial -----------------
             if (sigue==true)
             {
@@ -78,8 +96,8 @@ do {
             Implementacion.PulsarParaContinuar("PULSE UNA TECLA PARA SALIR");
         break;
         case '3':
-            Console.WriteLine("opcion 3 swich");
-            Console.ReadKey(true);
+            Implementacion.Opcines();
+            Implementacion.PulsarParaContinuar("PULSE UNA TECLA PARA SALIR");
         break;
     }
 }while(key.KeyChar != '4');

@@ -4,6 +4,7 @@ using spaceDirecciones;
 using fabricaDePersonajes;
 using System.Text.Json;
 using System.Drawing;
+using spaceOpciones;
 
 namespace implementaciones
 {
@@ -624,10 +625,27 @@ namespace implementaciones
         }
         public static void Opcines()
         {
+            int elegir;
+            Opcion opciones = Opcion.leerOpciones();
             Console.WriteLine("Dificultad");
             Console.WriteLine("     1 - Facil (5 Enemigos)");
             Console.WriteLine("     2 - Medio (8 Enemigos)");
             Console.WriteLine("     3 - Dificil (10 Enemigos)");
+            do
+            {
+                int.TryParse(Console.ReadLine(), out elegir);
+                if(elegir<1 || elegir>3)
+                {
+                    Console.Write("Elige una opcion valida");
+                }
+            } while (elegir<1 || elegir>3);
+            switch (elegir)
+            {
+                case 1:opciones.Dificultad='F';break;
+                case 2:opciones.Dificultad='M';break;
+                case 3:opciones.Dificultad='D';break;
+            }
+            Opcion.GuardarOpciones(opciones);
         }
 
         
