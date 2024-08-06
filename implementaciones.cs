@@ -51,15 +51,6 @@ namespace implementaciones
                 Console.Write("Nombre: ");
                 Implementacion.colorNombre(personaje);
                 Console.Write("\n");
-                /*
-                // Aplico el color al nombre
-                nom = Implementacion.colorNombre(personaje);
-                if (personaje.Datos.Nombre != "Zeno")
-                {
-                    Console.Write(nom);
-                }
-                Console.Write("\n");
-                */
                 // Restaurar el color de texto original
                 Console.ForegroundColor = colorOriginal;
                 Console.Write("Raza: ");
@@ -77,7 +68,7 @@ namespace implementaciones
                 Console.WriteLine($"SALUD: {salud}    KI: {ki}    FUERZA: {fuerza}    VELOCIDAD: {velocidad}    DESTREZA:{destreza}    RESISTENCIA: {resistencia}");
                 cont++;
                 Console.Write("\n");
-                Thread.Sleep(1000);
+                //Thread.Sleep(1000);
             }
         }
         public static void PantallaDeInicio()
@@ -202,9 +193,10 @@ namespace implementaciones
             
             // Obtén el tamaño de la consola
             int consoleHeight = Console.WindowHeight;
-
+            bool efecto = true;
             // Mueve el cursor a la posición inferior izquierda
-            while (!Console.KeyAvailable) // Continúa el bucle hasta que se presione una tecla
+            Console.SetCursorPosition(0, consoleHeight - 2);
+            while (efecto) // Continúa el bucle hasta que se presione una tecla
             {
                 // Mostrar el texto
                 Console.SetCursorPosition(0, consoleHeight - 2);
@@ -219,10 +211,15 @@ namespace implementaciones
 
                 // Esperar medio segundo antes de volver a mostrar el texto
                 Thread.Sleep(800);
+                if (Console.KeyAvailable)
+                {       
+                    efecto = false; // Detener el parpadeo
+                    Console.ReadKey(true); // Leer la tecla sin mostrarla
+                    break;
+                }
+                Console.Write("\n");
             }
-
             // Limpiar la entrada del teclado para evitar capturar la tecla presionada
-            Console.ReadKey(true);
             Console.Write("\n");
 
         }
@@ -623,8 +620,16 @@ namespace implementaciones
 
                     Console.WriteLine(line); // Imprimir la línea completa de guiones
                 }
-
             }
         }
+        public static void Opcines()
+        {
+            Console.WriteLine("Dificultad");
+            Console.WriteLine("     1 - Facil (5 Enemigos)");
+            Console.WriteLine("     2 - Medio (8 Enemigos)");
+            Console.WriteLine("     3 - Dificil (10 Enemigos)");
+        }
+
+        
     }
 }
