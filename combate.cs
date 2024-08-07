@@ -8,6 +8,7 @@ namespace spaceCombates
     {
         public static bool Combatir(Personaje Jugador, Personaje Enemigo)
         {
+            InfoEnemigo(Enemigo);
             bool ganador= true;
             int turno = 1;
             Random aleatorio = new Random();
@@ -17,7 +18,7 @@ namespace spaceCombates
             {
                 ConsoleColor colorOriginal = Console.ForegroundColor;  
                 Console.ForegroundColor = ConsoleColor.Blue;
-                string texto = $"############## TURNO {turno} ##############";
+                string texto = $"TURNO {turno}";
                 Implementacion.CentrarTextoHorizontal(texto);
                 Console.ForegroundColor = colorOriginal;
                 if (comienza==0)
@@ -51,16 +52,22 @@ namespace spaceCombates
                             Combate.RecibirAtaque(Jugador, Enemigo, danioProvocado);
                         break;
                         case '2':
-                            int curar = 25;
-                            if (Jugador.Caracteristicas.Salud>75)
+                            Console.WriteLine("");
+                            int curar = 15;
+                            if (Jugador.Caracteristicas.Salud>85)
                             {
                                 curar = 100 - Jugador.Caracteristicas.Salud;
                             }
-                            Console.Write($" Come una Semilla del Ermitaño Salud = {Jugador.Caracteristicas.Salud} ");
+                            Implementacion.colorNombre(Jugador);
+                            Console.Write($" Come una Semilla del Ermitaño ");
                             Console.ForegroundColor = ConsoleColor.Green;
-                            Console.Write($"+ {curar} \n");
+                            Console.Write($"+ {curar} Puntos de vida");
                             Console.ResetColor();
                             Jugador.Caracteristicas.Salud += curar;
+                            Console.Write($" , Salud: ");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.Write($"{Jugador.Caracteristicas.Salud}\n");
+                            Console.ResetColor();
                         break;
                     }
                     
@@ -69,12 +76,43 @@ namespace spaceCombates
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("(Enemigo) ");
                     Console.ResetColor();
-                    int danioProvocado = Combate.Atacar(Enemigo,Jugador);
-                    Combate.RecibirAtaque(Enemigo, Jugador, danioProvocado);
+                    // ELECCION ENEMIGO
+                    if (Enemigo.Caracteristicas.Salud<=85)
+                    {
+                        Random random = new Random();
+                        int AtacarOCurar = random.Next(1,3);
+                        Thread.Sleep(400);
+                        switch (AtacarOCurar)
+                        {
+                            case 1: //ATACA
+                                int danioProvocado = Combate.Atacar(Enemigo,Jugador);
+                                Combate.RecibirAtaque(Enemigo, Jugador, danioProvocado);
+                            break;
+                            case 2: //SE CURA
+                                Console.WriteLine("");
+                                int curar = 15;
+                                Implementacion.colorNombre(Enemigo);
+                                Console.Write($" Come una Semilla del Ermitaño ");
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.Write($"+ {curar} puntos de vida");
+                                Console.ResetColor();
+                                Enemigo.Caracteristicas.Salud += curar;
+                                Console.Write($" , Salud: ");
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.Write($"{Enemigo.Caracteristicas.Salud}\n");
+                                Console.ResetColor();
+                                
+                            break;
+                        }
+                    }else{
+                        int danioProvocado = Combate.Atacar(Enemigo,Jugador);
+                        Combate.RecibirAtaque(Enemigo, Jugador, danioProvocado);
+                    }
+                    
                     comienza = 0;
                 }
-                
                 Console.Write("\n");
+                Thread.Sleep(400);
                 turno++;
             }
 
@@ -96,23 +134,6 @@ namespace spaceCombates
                         @"|____/ \___|_|  |_|  \___/ \__\__,_|",
                         
                     };
-            
-                
-                //Console.ForegroundColor = ConsoleColor.White;
-                Console.Clear();
-                // Obtener el tamaño de la ventana de la consola
-                int consoleWidth = Console.WindowWidth;
-                int consoleHeight = Console.WindowHeight;
-
-                // Calcular el espacio necesario para centrar verticalmente
-                int verticalPadding = (consoleHeight - derrota.Length) / 2;
-
-                // Imprimir líneas vacías antes del texto para centrar verticalmente
-                for (int i = 0; i < verticalPadding; i++)
-                {
-                    Console.WriteLine();
-                }
-                
                 
             if (Jugador.Caracteristicas.Salud>0)
             {
@@ -151,7 +172,7 @@ namespace spaceCombates
             int efectividad = aleatorio.Next(0, 101);
             const int cteAjuste = 500;
             // Defensor
-            int defensa = atacante.Caracteristicas.Resistencia * atacante.Caracteristicas.Velocidad;
+            int defensa = defensor.Caracteristicas.Resistencia * defensor.Caracteristicas.Velocidad;
             // Daño
             int danioProvocado = ((ataque * efectividad) - defensa) / cteAjuste;
             System.Console.WriteLine("EFECTIVIDAD:{0}",efectividad);
@@ -164,10 +185,27 @@ namespace spaceCombates
             {
                 defensor.Caracteristicas.Salud = 0;
             } 
-            Console.WriteLine($"{atacante.Datos.Nombre} ataca a {defensor.Datos.Nombre} causa un daño total de {danio} puntos, Salud {defensor.Datos.Nombre}:  {defensor.Caracteristicas.Salud}");
+            Implementacion.colorNombre(atacante);
+            Console.Write($" ataca a {defensor.Datos.Nombre} causa un daño total de {danio} puntos, Salud {defensor.Datos.Nombre}:  {defensor.Caracteristicas.Salud}\n");
         }
-
+        public static void InfoEnemigo (Personaje enemigo)
+        {
+                Implementacion.CentrarTextoHorizontal("DATOS Del ENEMIGO");
+                Console.Write("Nombre: ");
+                Implementacion.colorNombre(enemigo);
+                Console.Write("     Raza: ");
+                // Aplico color a la raza
+                Implementacion.colorRaza(enemigo);
+                Console.Write("\n");
+                int salud = enemigo.Caracteristicas.Salud;
+                int ki = enemigo.Caracteristicas.Ki;
+                int fuerza = enemigo.Caracteristicas.Fuerza;
+                int velocidad = enemigo.Caracteristicas.Velocidad;
+                int destreza =enemigo.Caracteristicas.Destreza;
+                int resistencia =enemigo.Caracteristicas.Resistencia;
+                Console.WriteLine($"SALUD: {salud}    KI: {ki}    FUERZA: {fuerza}    VELOCIDAD: {velocidad}    DESTREZA:{destreza}    RESISTENCIA: {resistencia}");
+                Console.Write("\n");
+                Console.ReadKey(true);
+        }
     }
-
-    
 }

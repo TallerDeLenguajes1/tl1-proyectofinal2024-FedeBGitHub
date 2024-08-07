@@ -10,6 +10,7 @@ using implementaciones;
 using spaceCombates;
 using spaceOpciones;
 using Microsoft.VisualBasic;
+using System.Drawing;
 
 
 Opcion opciones = Opcion.leerOpciones();
@@ -34,7 +35,9 @@ do {
             Implementacion.MostrarPersonajes();
             int opcionPersonajes;
             //Elegir Personaje 
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Implementacion.CentrarTextoHorizontal("------------------ELEGIR PERSONAJE------------------");
+            Console.ResetColor();
             do
             {
                 int.TryParse(Console.ReadLine(), out opcionPersonajes);
@@ -69,24 +72,6 @@ do {
             {
                 Personaje enemigo = await FabricaDePersonajes.PersonajeAleatorioAsync();
                 Personaje personajeJugador = PersonajesJugables[opcionPersonajes];
-            //Mostrar Caracteristicas del enemigo 
-                Console.WriteLine("DATOS ENEMIGO");
-                Console.Write("Nombre: ");
-                Implementacion.colorNombre(enemigo);
-                Console.Write("\n");
-                Console.Write("Raza: ");
-                // Aplico color a la raza
-                Implementacion.colorRaza(enemigo);
-                Console.WriteLine("\nDescripción: {0}",enemigo.Datos.Descripcion);
-                int salud = enemigo.Caracteristicas.Salud;
-                int ki = enemigo.Caracteristicas.Ki;
-                int fuerza = enemigo.Caracteristicas.Fuerza;
-                int velocidad = enemigo.Caracteristicas.Velocidad;
-                int destreza =enemigo.Caracteristicas.Destreza;
-                int resistencia =enemigo.Caracteristicas.Resistencia;
-                Console.WriteLine($"SALUD: {salud}    KI: {ki}    FUERZA: {fuerza}    VELOCIDAD: {velocidad}    DESTREZA:{destreza}    RESISTENCIA: {resistencia}");
-                Console.Write("\n");
-                Console.ReadKey(true);
             //----------------- Pantalla de versus -----------------
                 Implementacion.PantallaVS(personajeJugador,enemigo);
                 Console.Write("\n\n");
@@ -95,14 +80,14 @@ do {
                 sigue = Combate.Combatir(PersonajesJugables[opcionPersonajes],enemigo);
                 numCombate++;
                 Console.Write("\n");
-                Implementacion.PulsarParaContinuar("PULSE UNA TECLA PARA CONTINUAR2");
+                Implementacion.ParpadeoTexto("PULSE UNA TECLA PARA CONTINUAR");
             } while (numCombate<=cantCombates && sigue==true);
             //----------------- Historial -----------------
             if (sigue==true)
             {
                 Personaje ganador = PersonajesJugables[opcionPersonajes];
                 HistorialJson.GuardarGanador(ganador,Directorio.JsonHistorial,opciones.Dificultad);
-                Implementacion.PulsarParaContinuar("PULSE UNA TECLA PARA CONTINUAR3");
+                Implementacion.PulsarParaContinuar("PULSE UNA TECLA PARA CONTINUAR");
             }else
                 {
                     

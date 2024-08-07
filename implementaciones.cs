@@ -216,9 +216,7 @@ namespace implementaciones
                 }
                 Console.Write("\n");
             }
-            // Limpiar la entrada del teclado para evitar capturar la tecla presionada
             Console.Write("\n");
-
         }
         public static void CentrarTextoHorizontal(string texto)
         {
@@ -306,37 +304,9 @@ namespace implementaciones
                 Console.WriteLine(opciones[j]);
                 if (j==0)
                 {
-                   cont++; 
+                    cont++; 
                 }
                 cont++;
-            }
-        }
-        public static void Menu2(int verticalStart, int cont)
-        {
-            int screenWidth = Console.WindowWidth;
-            int i = cont;
-            string[] opciones = new string[]
-            {
-                "¡Comienza la batalla!",
-                "1 - Iniciar Juego    ",
-                "2 - Ranking Historico",
-                "3 - Opciones         ",
-                "4 - Salir            "
-            };
-            
-            i = i + 3;
-            
-            for (int j = 0; j < opciones.Length; j++)
-            {
-                
-                int horizontal = (screenWidth - opciones[j].Length) / 2;
-                Console.SetCursorPosition(horizontal, verticalStart + i);
-                Console.WriteLine(opciones[j]);
-                if (j==0)
-                {
-                   i++; 
-                }
-                i++;
             }
         }
 
