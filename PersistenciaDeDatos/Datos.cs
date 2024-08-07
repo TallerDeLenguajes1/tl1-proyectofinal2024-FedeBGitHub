@@ -38,15 +38,16 @@ namespace spacePersistenciaDeDatos
 
     public class HistorialJson
     {
-        private Personaje ganador;
+        private Personaje personajeGanador;
         private DateTime fecha;
         private string nombreGanador;
-        
+        private char dificultad;
         public DateTime Fecha { get => fecha; set => fecha = value; }
         public string NombreGanador { get => nombreGanador; set => nombreGanador = value; }
-        public Personaje Ganador { get => ganador; set => ganador = value; }
+        public Personaje PersonajeGanador { get => personajeGanador; set => personajeGanador = value; }
+        public char Dificultad { get => dificultad; set => dificultad = value; }
 
-        public static void GuardarGanador(Personaje personaje, string direccionArchivo)
+        public static void GuardarGanador(Personaje personaje, string direccionArchivo, char dif)
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -58,16 +59,16 @@ namespace spacePersistenciaDeDatos
             
             // Guardar los datos del personaje tanto Datos como Caracteristicas
             HistorialJson ganadorH = new HistorialJson();
-            ganadorH.Ganador = personaje;
+            ganadorH.PersonajeGanador = personaje;
             ganadorH.Fecha = DateTime.Now;
-            // Si gana un jugador guardar un nombre que el va a intruducir
+            ganadorH.Dificultad = dif;
             Thread.Sleep(1000);
             Console.Write("\nIngrese su nombre/apodo: ");
             ganadorH.NombreGanador = Console.ReadLine();
 
             List<HistorialJson> historial = new List<HistorialJson>();
              // Comprobar si la carpeta existe, si no, crearla
-             
+            
             if (!Directory.Exists(Directorio.CarpetaHistorial))
             {
                 Directory.CreateDirectory(Directorio.CarpetaHistorial);

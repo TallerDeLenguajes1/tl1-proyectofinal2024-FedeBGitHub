@@ -599,13 +599,27 @@ namespace implementaciones
                 Historiales = JsonSerializer.Deserialize<List<HistorialJson>>(JsonHistorial);
                 foreach (HistorialJson historial in Historiales)
                 {
-                    Console.WriteLine("Nombre: "+historial.NombreGanador+"      Fecha: "+historial.Fecha.ToString("d")+"        Hora: " + historial.Fecha.ToString("t"));
+                    Console.Write("Nombre: "+historial.NombreGanador+"      Fecha: "+historial.Fecha.ToString("d")+"        Hora: " + historial.Fecha.ToString("t"));
+                    Console.Write("     Dificultad: ");
+                    switch (historial.Dificultad)
+                    {
+                        case 'F':
+                            Console.Write("Facil\n");
+                        break;
+                        case 'M':
+                            Console.Write("Media\n");
+                        break;
+                        case 'D':
+                            Console.Write("Dificil\n");
+                        break;
+                    }
                     Console.Write("Personaje Usado: ");
                     //Console.Write(historial.PersonajeGanador.Datos.Nombre);
                     Implementacion.colorNombre(historial.PersonajeGanador);
-                    
                     Console.Write("     Raza: ");
                     Implementacion.colorRaza(historial.PersonajeGanador);
+                    
+                    
                     Console.Write("\n");
                     int salud = historial.PersonajeGanador.Caracteristicas.Salud;
                     int ki = historial.PersonajeGanador.Caracteristicas.Ki;
@@ -653,7 +667,7 @@ namespace implementaciones
                         @"1 - Facil (5 Enemigos)   ",
                         @"2 - Medio (8 Enemigos)   ",
                         @"3 - Dificil (10 Enemigos)",
-                        @"4 - Salir",
+                        @"4 - Salir                ",
                     };    
         
             // Obtener el tamaño de la ventana de la consola
@@ -691,7 +705,7 @@ namespace implementaciones
                 int.TryParse(Console.ReadLine(), out elegir);
                 if(elegir<1 || elegir>4)
                 {
-                    Console.Write("Elige una opcion valida");
+                    Console.Write("Elige una opcion valida: ");
                 }
             } while (elegir<1 || elegir>4);
             if (elegir == 4)

@@ -83,12 +83,13 @@ do {
             if (sigue==true)
             {
                 Personaje ganador = PersonajesJugables[opcionPersonajes];
-                HistorialJson.GuardarGanador(ganador,Directorio.JsonHistorial);
+                HistorialJson.GuardarGanador(ganador,Directorio.JsonHistorial,opciones.Dificultad);
+                Implementacion.PulsarParaContinuar("PULSE UNA TECLA PARA CONTINUAR3");
             }else
                 {
-                    Console.WriteLine("Perdiste mi ray");
+                    
                 }
-            Console.ReadKey(true);
+            
         break;
         case '2':
             Implementacion.MostrarHistorial();
@@ -98,6 +99,7 @@ do {
             Implementacion.Opcines();
         break;
     }
+    Console.Clear();
 }while(key.KeyChar != '4');
 
 
