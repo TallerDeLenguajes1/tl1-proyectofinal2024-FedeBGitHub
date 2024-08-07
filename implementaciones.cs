@@ -52,18 +52,14 @@ namespace implementaciones
                 Console.Write("Nombre: ");
                 Implementacion.colorNombre(personaje);
                 Console.Write("\n");
-                // Restaurar el color de texto original
-                Console.ForegroundColor = colorOriginal;
                 Console.Write("Raza: ");
                 // Aplico color a la raza
                 Implementacion.colorRaza(personaje);
-                // Restaurar el color de texto original
-                Console.ForegroundColor = colorOriginal;
                 Console.WriteLine("\nDescripción: {0}",personaje.Datos.Descripcion);
                 int salud = personaje.Caracteristicas.Salud;
                 int ki = personaje.Caracteristicas.Ki;
                 int fuerza = personaje.Caracteristicas.Fuerza;
-                int velocidad = personaje.Caracteristicas.Velocidad;;
+                int velocidad = personaje.Caracteristicas.Velocidad;
                 int destreza =personaje.Caracteristicas.Destreza;
                 int resistencia =personaje.Caracteristicas.Resistencia;
                 Console.WriteLine($"SALUD: {salud}    KI: {ki}    FUERZA: {fuerza}    VELOCIDAD: {velocidad}    DESTREZA:{destreza}    RESISTENCIA: {resistencia}");

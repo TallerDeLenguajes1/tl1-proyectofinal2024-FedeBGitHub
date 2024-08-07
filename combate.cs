@@ -11,7 +11,7 @@ namespace spaceCombates
             bool ganador= true;
             int turno = 1;
             Random aleatorio = new Random();
-            int comienza = aleatorio.Next(0, 2); // 0-Comienza p1 | 1-Comienza p2
+            int comienza = aleatorio.Next(0, 2); // 0-Comienza Jugador | 1-Comienza Enemigo
 
             while (Jugador.Caracteristicas.Salud>0 && Enemigo.Caracteristicas.Salud>0)
             {
@@ -19,14 +19,56 @@ namespace spaceCombates
                 Console.ForegroundColor = ConsoleColor.Blue;
                 string texto = $"############## TURNO {turno} ##############";
                 Implementacion.CentrarTextoHorizontal(texto);
-                //Console.WriteLine("############## TURNO {0} ##############",turno);
                 Console.ForegroundColor = colorOriginal;
                 if (comienza==0)
                 {
-                    int danioProvocado = Combate.Atacar(Jugador,Enemigo);
-                    Combate.RecibirAtaque(Jugador, Enemigo, danioProvocado);
+                    string[] peleaOpciones = new string[]
+                    {
+                        @" ________________________",
+                        @"|        Opciones        |",
+                        @"|1 - Atacar              |",
+                        @"|2 - Semilla del ermitaño|",
+                        @"|_______________________ |",
+                        @"                          ",
+                    };
+                    foreach (string linea in peleaOpciones)
+                    {
+                        Implementacion.CentrarTextoHorizontal(linea);
+                    }
+                    ConsoleKeyInfo key;
+                    key = Console.ReadKey(true); 
+                    while ( key.KeyChar != '1' && key.KeyChar != '2')
+                    {
+                        key = Console.ReadKey(true);
+                    }
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write("(Jugador) ");
+                    Console.ResetColor();
+                    switch (key.KeyChar)
+                    {
+                        case '1':
+                            int danioProvocado = Combate.Atacar(Jugador,Enemigo);
+                            Combate.RecibirAtaque(Jugador, Enemigo, danioProvocado);
+                        break;
+                        case '2':
+                            int curar = 25;
+                            if (Jugador.Caracteristicas.Salud>75)
+                            {
+                                curar = 100 - Jugador.Caracteristicas.Salud;
+                            }
+                            Console.Write($" Come una Semilla del Ermitaño Salud = {Jugador.Caracteristicas.Salud} ");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.Write($"+ {curar} \n");
+                            Console.ResetColor();
+                            Jugador.Caracteristicas.Salud += curar;
+                        break;
+                    }
+                    
                     comienza = 1;
                 }else{
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("(Enemigo) ");
+                    Console.ResetColor();
                     int danioProvocado = Combate.Atacar(Enemigo,Jugador);
                     Combate.RecibirAtaque(Enemigo, Jugador, danioProvocado);
                     comienza = 0;
@@ -70,14 +112,19 @@ namespace spaceCombates
                 {
                     Console.WriteLine();
                 }
-
+                
                 
             if (Jugador.Caracteristicas.Salud>0)
             {
-                Jugador.Caracteristicas.Salud += 100;
+                int curar = 25;
+                if (Jugador.Caracteristicas.Salud>75)
+                {
+                    curar = 100 - Jugador.Caracteristicas.Salud;
+                }
                 Console.Write($"Salud = {Jugador.Caracteristicas.Salud} ");
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write($"+ 100 \n");
+                Console.Write($" + {curar} \n");
+                Jugador.Caracteristicas.Salud += curar;
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 // Imprimir cada línea del texto centrada horizontalmente
                 foreach (string lineaV in victoria)

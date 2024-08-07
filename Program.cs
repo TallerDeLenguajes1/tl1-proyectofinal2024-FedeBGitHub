@@ -69,6 +69,24 @@ do {
             {
                 Personaje enemigo = await FabricaDePersonajes.PersonajeAleatorioAsync();
                 Personaje personajeJugador = PersonajesJugables[opcionPersonajes];
+            //Mostrar Caracteristicas del enemigo 
+                Console.WriteLine("DATOS ENEMIGO");
+                Console.Write("Nombre: ");
+                Implementacion.colorNombre(enemigo);
+                Console.Write("\n");
+                Console.Write("Raza: ");
+                // Aplico color a la raza
+                Implementacion.colorRaza(enemigo);
+                Console.WriteLine("\nDescripción: {0}",enemigo.Datos.Descripcion);
+                int salud = enemigo.Caracteristicas.Salud;
+                int ki = enemigo.Caracteristicas.Ki;
+                int fuerza = enemigo.Caracteristicas.Fuerza;
+                int velocidad = enemigo.Caracteristicas.Velocidad;
+                int destreza =enemigo.Caracteristicas.Destreza;
+                int resistencia =enemigo.Caracteristicas.Resistencia;
+                Console.WriteLine($"SALUD: {salud}    KI: {ki}    FUERZA: {fuerza}    VELOCIDAD: {velocidad}    DESTREZA:{destreza}    RESISTENCIA: {resistencia}");
+                Console.Write("\n");
+                Console.ReadKey(true);
             //----------------- Pantalla de versus -----------------
                 Implementacion.PantallaVS(personajeJugador,enemigo);
                 Console.Write("\n\n");
