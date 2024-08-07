@@ -637,7 +637,7 @@ namespace implementaciones
                 }
             }
         }
-        public static void Opcines()
+        public static void Opciones()
         {
             int elegir;
             do{

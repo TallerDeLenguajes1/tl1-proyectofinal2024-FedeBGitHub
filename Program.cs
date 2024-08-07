@@ -96,7 +96,7 @@ do {
             Implementacion.PulsarParaContinuar("PULSE UNA TECLA PARA SALIR");
         break;
         case '3':
-            Implementacion.Opcines();
+            Implementacion.Opciones();
         break;
     }
     Console.Clear();
