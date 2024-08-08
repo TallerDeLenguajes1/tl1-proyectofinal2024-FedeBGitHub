@@ -11,7 +11,7 @@
 - **Modo de Combate por Turnos**: Participa en batallas estratégicas 1vs1.
 - **Ranking Histórico**: Guarda y muestra a los jugadores que han logrado vencer a todos los oponentes.
 - **Curación con Semillas del Ermitaño**: Recupera 15 puntos de vida durante la batalla.
-- **Integración con API de Dragon Ball**: Obtén información actualizada de los personajes directamente desde la [API de Dragon Ball](https://dragonball-api.com).
+- **Integración con API de Dragon Ball**: Obtén información actualizada de los personajes directamente desde la [API de Dragon Ball](https://dragonball-api.com/api/characters?limit=58).
 
 ## Menú Principal
 
