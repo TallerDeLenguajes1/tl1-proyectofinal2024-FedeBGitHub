@@ -65,7 +65,7 @@ namespace implementaciones
                 Console.WriteLine($"SALUD: {salud}    KI: {ki}    FUERZA: {fuerza}    VELOCIDAD: {velocidad}    DESTREZA:{destreza}    RESISTENCIA: {resistencia}");
                 cont++;
                 Console.Write("\n");
-                //Thread.Sleep(1000);
+                Thread.Sleep(1000);
             }
         }
         public static void PantallaDeInicio()

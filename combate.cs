@@ -138,11 +138,7 @@ namespace spaceCombates
                 
             if (Jugador.Caracteristicas.Salud>0)
             {
-                int curar = 25;
-                if (Jugador.Caracteristicas.Salud>75)
-                {
-                    curar = 100 - Jugador.Caracteristicas.Salud;
-                }
+                int curar = 100 - Jugador.Caracteristicas.Salud;
                 Console.Write($"Salud = {Jugador.Caracteristicas.Salud} ");
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write($" + {curar} \n");
