@@ -23,6 +23,7 @@ namespace spaceCombates
                 Console.ForegroundColor = colorOriginal;
                 if (comienza==0)
                 {
+                    Thread.Sleep(400);
                     string[] peleaOpciones = new string[]
                     {
                         @" ________________________",
@@ -73,6 +74,7 @@ namespace spaceCombates
                     
                     comienza = 1;
                 }else{
+                    Thread.Sleep(400);
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("(Enemigo) ");
                     Console.ResetColor();
@@ -81,7 +83,6 @@ namespace spaceCombates
                     {
                         Random random = new Random();
                         int AtacarOCurar = random.Next(1,3);
-                        Thread.Sleep(400);
                         switch (AtacarOCurar)
                         {
                             case 1: //ATACA
@@ -112,7 +113,7 @@ namespace spaceCombates
                     comienza = 0;
                 }
                 Console.Write("\n");
-                Thread.Sleep(400);
+                
                 turno++;
             }
 
@@ -190,7 +191,7 @@ namespace spaceCombates
         }
         public static void InfoEnemigo (Personaje enemigo)
         {
-                Implementacion.CentrarTextoHorizontal("DATOS Del ENEMIGO");
+                Implementacion.CentrarTextoHorizontal("Datos Del Enemigo");
                 Console.Write("Nombre: ");
                 Implementacion.colorNombre(enemigo);
                 Console.Write("     Raza: ");
@@ -205,7 +206,7 @@ namespace spaceCombates
                 int resistencia =enemigo.Caracteristicas.Resistencia;
                 Console.WriteLine($"SALUD: {salud}    KI: {ki}    FUERZA: {fuerza}    VELOCIDAD: {velocidad}    DESTREZA:{destreza}    RESISTENCIA: {resistencia}");
                 Console.Write("\n");
-                Console.ReadKey(true);
+                Implementacion.ParpadeoTexto("PULSE UNA TECLA PARA COMENZAR EL COMBATE");
         }
     }
 }
