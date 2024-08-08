@@ -85,6 +85,7 @@ do {
             //----------------- Historial -----------------
             if (sigue==true)
             {
+                Implementacion.PantallaGanador();
                 Personaje ganador = PersonajesJugables[opcionPersonajes];
                 HistorialJson.GuardarGanador(ganador,Directorio.JsonHistorial,opciones.Dificultad);
                 Implementacion.PulsarParaContinuar("PULSE UNA TECLA PARA CONTINUAR");

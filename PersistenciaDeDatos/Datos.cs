@@ -49,13 +49,12 @@ namespace spacePersistenciaDeDatos
 
         public static void GuardarGanador(Personaje personaje, string direccionArchivo, char dif)
         {
-            Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
             Thread.Sleep(800);
             Console.Write("\n\n");
             Implementacion.CentrarTextoHorizontal("¡ENTRASTE AL RANKING HISTORICO DE GANADORES!");
             Console.ResetColor();
-            Console.WriteLine("\n\nLograste derrotar a todos los oponentes y convertirte en el guerrero más fuerte del universo , ahora vas a quedar en la historia como uno de los mejores peleadores \n\n");
+            Console.WriteLine("\n\nLograste derrotar a todos los oponentes y convertirte en el guerrero más fuerte del universo , ahora vas a quedar en la historia como uno de los mejores peleadores \n");
             
             // Guardar los datos del personaje tanto Datos como Caracteristicas
             HistorialJson ganadorH = new HistorialJson();
@@ -63,7 +62,7 @@ namespace spacePersistenciaDeDatos
             ganadorH.Fecha = DateTime.Now;
             ganadorH.Dificultad = dif;
             Thread.Sleep(1000);
-            Console.Write("\nIngrese su nombre/apodo: ");
+            Console.Write("Ingrese su nombre/apodo: ");
             ganadorH.NombreGanador = Console.ReadLine();
 
             List<HistorialJson> historial = new List<HistorialJson>();
